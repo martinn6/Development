@@ -1,0 +1,23 @@
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+	text-align: left;
+}
+th, td {
+    padding: 5px;
+}
+</style>
+<h1>I recieved a POST request with the following parameters:</h1>
+<table border="1">
+	<tr>
+		<th>Name</th>
+		<th>Value</th>
+	<tr>
+	{{#each params}}
+		<tr>
+			<td>{{this.name}}</td>
+		    <td>{{this.value}}</td>
+		</tr>
+	{{/each}}
+</table>
