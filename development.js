@@ -3,9 +3,11 @@ var express = require('express');
 var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(session({secret:'SuperSecretPassword'}));
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -26,7 +28,10 @@ app.get('/randomnum',function(req,res){
 });
 
 app.get('/sessionsTest',function(req,res){
-  res.render('sessionsTest', getRandomNum());
+  var context = {};
+  context.count = req.session.count || 0;
+  req.session.count = context.count + 1;
+  res.render('sessionsTest', context);
 });
 
 app.get('/other-page',function(req,res){
