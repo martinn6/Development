@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-app.set('port', 3000);
+app.set('port', 3001);
 
 function getRandomNum() {
 	var stuff = {};
@@ -23,6 +23,10 @@ app.get('/',function(req,res){
 
 app.get('/randomnum',function(req,res){
   res.render('randomnum', getRandomNum());
+});
+
+app.get('/sessionTest',function(req,res){
+  res.render('sessionTest', getRandomNum());
 });
 
 app.get('/other-page',function(req,res){
