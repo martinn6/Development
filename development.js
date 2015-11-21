@@ -26,7 +26,7 @@ app.get('/randomnum',function(req,res){
 });
 
 app.get('/sessionTest',function(req,res){
-  res.render('sessionTest', getRandomNum());
+  res.render('sessionsTest', getRandomNum());
 });
 
 app.get('/other-page',function(req,res){
