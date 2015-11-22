@@ -65,8 +65,7 @@ app.post('/todo',function(req,res){
 	
 	//sumit to get weather
 	var reqWeather = new XMLHttpRequest();
-	var temp = '';
-	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
+	var temp = reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
 		reqWeather.addEventListener('load',function(){
 		if(reqWeather.status >= 200 && reqWeather.status < 400)
 		{
@@ -84,9 +83,13 @@ app.post('/todo',function(req,res){
 				temp = (((temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
 				console.log("Temp= ", temp);
 			}
-		} else {
-				console.log("Error in network request: " + request.statusText);
-			}
+			
+		} else 
+		{
+			console.log("Error in network request: " + request.statusText);
+			temp = "City Not Found";
+		}
+		return temp;
 		});
 	reqWeather.send(null);
 	req.session.toDo.push({"name":req.body.name, 
