@@ -29,7 +29,7 @@ app.get('/todo',function(req,res,next){
   //If there is no session, go to the main page.
   if(!req.session.name){
     res.render('login', context);
-    //return 'todolist';
+    return;
   }
   context.name = req.session.name;
   context.toDoCount = req.session.toDo.length || 0;
