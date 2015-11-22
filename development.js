@@ -65,6 +65,7 @@ app.post('/todo',function(req,res){
     req.session.curId++;
 	var cityName = req.body.city;
 	console.log("cityName= " + cityName);
+	
 	var reqWeather = new XMLHttpRequest();
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
 		reqWeather.addEventListener('load',function(){
@@ -100,8 +101,8 @@ app.post('/todo',function(req,res){
 				console.log("Error in network request: " + request.statusText);
 			}
 		});
-	req.send(null);
-	event.preventDefault();
+	reqWeather.send(null);
+	//event.preventDefault();
   }
 
   if(req.body['Done']){
