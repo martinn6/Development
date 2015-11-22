@@ -87,11 +87,10 @@ app.post('/todo',function(req,res){
 			else
 			{
 				console.log(reqWeather.responseText);
-				/*
-				name = response.name;
-				weather = response.weather;
-				temp = response.main.temp;
+				var temp = response.main.temp;
 				temp = ((temp - 273) / (5/9)) + 32; //convert Kelvin to Fahrenheit
+				req.session.toDo.push({"curCityTemp":temp});
+				/*
 				document.getElementById('cityName').textContent = name;
 				document.getElementById('weatherDescription').textContent = weather[0].description;
 				document.getElementById('temperature').textContent = temp;
