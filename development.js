@@ -65,6 +65,43 @@ app.post('/todo',function(req,res){
     req.session.curId++;
 	var cityName = req.body.city;
 	console.log("cityName= " + cityName);
+	var reqWeather = new XMLHttpRequest();
+	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
+		reqWeather.addEventListener('load',function(){
+		if(reqWeather.status >= 200 && reqWeather.status < 400)
+		{
+			var response = JSON.parse(reqWeather.responseText);
+			console.log("Message=" + response.message);
+			if(response.message == "Error: Not found city")
+			{
+				console.log("Error: Not Found City");
+				/*
+				document.getElementById('cityName').textContent = "City Not Found";
+				document.getElementById('weatherDescription').textContent = null;
+				document.getElementById('temperature').textContent = null;
+				document.getElementById('returnCode').textContent = response.message;
+				*/
+			}
+			else
+			{
+				console.log(reqWeather.responseText);
+				/*
+				name = response.name;
+				weather = response.weather;
+				temp = response.main.temp;
+				temp = ((temp - 273) / (5/9)) + 32; //convert Kelvin to Fahrenheit
+				document.getElementById('cityName').textContent = name;
+				document.getElementById('weatherDescription').textContent = weather[0].description;
+				document.getElementById('temperature').textContent = temp;
+				document.getElementById('returnCode').textContent = req.responseText;
+				*/
+			}
+		} else {
+				console.log("Error in network request: " + request.statusText);
+			}
+		});
+	req.send(null);
+	event.preventDefault();
   }
 
   if(req.body['Done']){
