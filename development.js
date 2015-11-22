@@ -38,7 +38,6 @@ app.get('/todo',function(req,res,next){
   res.render('todolist',context);
 });
 
-/*
 app.post('/todo',function(req,res){
   var context = {};
   console.log("todo");
@@ -72,7 +71,7 @@ app.post('/todo',function(req,res){
   console.log(context.toDo);
   res.render('todolist',context);
 });
-*/
+
 
 app.get('/randomnum',function(req,res){
   res.render('randomnum', getRandomNum());
