@@ -23,7 +23,7 @@ app.get('/',function(req,res){
   res.render('home')
 });
 
-/*
+
 app.get('/todo',function(req,res,next){
   var context = {};
   //If there is no session, go to the main page.
@@ -37,7 +37,7 @@ app.get('/todo',function(req,res,next){
   console.log(context.toDo);
   res.render('todolist',context);
 });
-*/
+
 
 app.post('/todo',function(req,res){
   var context = {};
