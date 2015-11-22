@@ -41,6 +41,7 @@ app.get('/todo',function(req,res,next){
 
 app.post('/todo',function(req,res){
   var context = {};
+  console.log("todo");
 
   if(req.body['New List']){
     req.session.name = req.body.name;
