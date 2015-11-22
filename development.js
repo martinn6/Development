@@ -74,13 +74,13 @@ app.post('/todo',function(req,res){
 			if(response.message == "Error: Not found city")
 			{
 				console.log("Error: Not Found City");
-				temp = "City Not Found";
+				this.temp = "City Not Found";
 			}
 			else
 			{
 				console.log(reqWeather.responseText);
-				temp = response.main.temp;
-				temp = (((temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
+				this.temp = response.main.temp;
+				this.temp = (((temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
 				console.log("Temp= ", temp);
 				req.session.toDo.push({"curCityTemp":temp});
 			}
@@ -93,7 +93,7 @@ app.post('/todo',function(req,res){
 		return temp;
 		});
 	reqWeather.send(null);
-	console.log("Temp= ", temp);
+	console.log("Temp2= ", temp);
 	req.session.toDo.push({"name":req.body.name, 
 		"city":req.body.city, 
 		"minTemp":req.body.minTemp, 
