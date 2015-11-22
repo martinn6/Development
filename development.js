@@ -87,6 +87,7 @@ app.post('/todo',function(req,res){
 				console.log(reqWeather.responseText);
 				var temp = response.main.temp;
 				temp = ((temp - 273) / (5/9)) + 32; //convert Kelvin to Fahrenheit
+				console.log("Temp= ", temp);
 				req.session.toDo.push({"name":req.body.name, 
 					"city":req.body.city, 
 					"minTemp":req.body.minTemp, 
