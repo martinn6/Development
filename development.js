@@ -26,6 +26,7 @@ app.get('/',function(req,res){
 
 app.get('/todo',function(req,res,next){
   var context = {};
+  console.log("todo get");
   //If there is no session, go to the main page.
   if(!req.session.name){
     res.render('login', context);
@@ -40,7 +41,7 @@ app.get('/todo',function(req,res,next){
 
 app.post('/todo',function(req,res){
   var context = {};
-  console.log("todo");
+  console.log("todo post");
 
   if(req.body['New List']){
     req.session.name = req.body.name;
