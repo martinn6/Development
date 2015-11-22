@@ -48,8 +48,7 @@ app.post('/todo',function(req,res){
     req.session.name = req.body.name;
     req.session.toDo = [];
     req.session.curId = 0;
-	var cityName = req.body.city;
-	console.log("cityName= " + cityName);
+	
   }
 
   //If there is no session, go to the main page.
@@ -64,6 +63,8 @@ app.post('/todo',function(req,res){
 		"minTemp":req.body.minTemp, 
 		"id":req.session.curId});
     req.session.curId++;
+	var cityName = req.body.city;
+	console.log("cityName= " + cityName);
   }
 
   if(req.body['Done']){
