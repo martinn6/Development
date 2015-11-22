@@ -56,7 +56,10 @@ app.post('/todo',function(req,res){
   }
 
   if(req.body['Add Item']){
-    req.session.toDo.push({"name":req.body.name, "city":req.body.city, "id":req.session.curId});
+    req.session.toDo.push({"name":req.body.name, 
+		"city":req.body.city, 
+		"minTemp":req.body.minTemp, 
+		"id":req.session.curId});
     req.session.curId++;
   }
 
