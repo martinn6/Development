@@ -94,6 +94,7 @@ app.post('/todo',function(req,res){
 					"curCityTemp":temp,
 					"id":req.session.curId
 				 });
+				 console.log(req.session.toDo);
 				req.session.curId++;
 			}
 		} else {
