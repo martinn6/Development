@@ -23,6 +23,20 @@ app.get('/',function(req,res){
   res.render('home')
 });
 
+app.get('/todo',function(req,res,next){
+  var context = {};
+  //If there is no session, go to the main page.
+  if(!req.session.name){
+    res.render('login', context);
+    return;
+  }
+  context.name = req.session.name;
+  context.toDoCount = req.session.toDo.length || 0;
+  context.toDo = req.session.toDo || [];
+  console.log(context.toDo);
+  res.render('todolist',context);
+});
+
 app.get('/randomnum',function(req,res){
   res.render('randomnum', getRandomNum());
 });
