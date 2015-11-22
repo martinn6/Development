@@ -4,9 +4,9 @@
 <h2>Here is your To Do List!</h2>
 <h3>You have {{toDoCount}} items on your to do list.</h3>
 <form method="post">
-  <input type="text" name="name" id="toDoName">
-  <input type="text" name="city" id="toDoCity">
-  <input type="text" name="minTemp" id="toDoMinTemp">
+  Task Name: <input type="text" name="name" id="toDoName"><BR>
+  City: <input type="text" name="city" id="toDoCity"><BR>
+  Min Temperature: <input type="text" name="minTemp" id="toDoMinTemp"><BR>
   <input type="submit" name="Add Item" value="Add Item">
 </form>
 {{#if toDo}}
