@@ -59,14 +59,11 @@ app.post('/todo',function(req,res){
   }
 
   if(req.body['Add Item']){
-    req.session.toDo.push({"name":req.body.name, 
-		"city":req.body.city, 
-		"minTemp":req.body.minTemp, 
-		"id":req.session.curId});
-    req.session.curId++;
+	//get city name
 	var cityName = req.body.city;
 	console.log("cityName= " + cityName);
 	
+	//sumit to get weather
 	var reqWeather = new XMLHttpRequest();
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
 		reqWeather.addEventListener('load',function(){
@@ -77,12 +74,13 @@ app.post('/todo',function(req,res){
 			if(response.message == "Error: Not found city")
 			{
 				console.log("Error: Not Found City");
-				/*
-				document.getElementById('cityName').textContent = "City Not Found";
-				document.getElementById('weatherDescription').textContent = null;
-				document.getElementById('temperature').textContent = null;
-				document.getElementById('returnCode').textContent = response.message;
-				*/
+				req.session.toDo.push({"name":req.body.name, 
+					"city":req.body.city, 
+					"minTemp":req.body.minTemp, 
+					"curCityTemp":"unknown",
+					"id":req.session.curId
+				 });
+				req.session.curId++;
 			}
 			else
 			{
@@ -90,19 +88,21 @@ app.post('/todo',function(req,res){
 				var temp = response.main.temp;
 				temp = ((temp - 273) / (5/9)) + 32; //convert Kelvin to Fahrenheit
 				req.session.toDo.push({"curCityTemp":temp});
-				/*
-				document.getElementById('cityName').textContent = name;
-				document.getElementById('weatherDescription').textContent = weather[0].description;
-				document.getElementById('temperature').textContent = temp;
-				document.getElementById('returnCode').textContent = req.responseText;
-				*/
+				req.session.toDo.push({"name":req.body.name, 
+					"city":req.body.city, 
+					"minTemp":req.body.minTemp, 
+					"curCityTemp":temp,
+					"id":req.session.curId
+				 });
+				req.session.curId++;
 			}
 		} else {
 				console.log("Error in network request: " + request.statusText);
 			}
 		});
 	reqWeather.send(null);
-	//event.preventDefault();
+	
+
   }
 
   if(req.body['Done']){
