@@ -48,7 +48,7 @@ app.post('/todo',function(req,res){
     req.session.name = req.body.name;
     req.session.toDo = [];
     req.session.curId = 0;
-	var cityName = document.getElementById('toDoCity').value;
+	var cityName = req.body.city;
 	console.log("cityName= " + cityName);
   }
 
@@ -78,49 +78,6 @@ app.post('/todo',function(req,res){
   console.log(context.toDo);
   res.render('todolist',context);
 });
-
-	/*
-document.getElementById('zipSubmit').addEventListener('click', function(event){
-    var req = new XMLHttpRequest();
-	var cityName = document.getElementById('city').value;
-	console.log("cityName= " + cityName);
-
-		//if no zipcode, search by city
-		console.log("ZIPCODE NULL")
-		req.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
-		req.addEventListener('load',function(){
-		if(req.status >= 200 && req.status < 400)
-		{
-			var response = JSON.parse(req.responseText);
-			console.log("Message=" + response.message);
-			if(response.message == "Error: Not found city")
-			{
-				console.log("Error: Not Found City");
-				document.getElementById('cityName').textContent = "City Not Found";
-				document.getElementById('weatherDescription').textContent = null;
-				document.getElementById('temperature').textContent = null;
-				document.getElementById('returnCode').textContent = response.message;
-			}
-			else
-			{
-				name = response.name;
-				weather = response.weather;
-				temp = response.main.temp;
-				temp = ((temp - 273) / (5/9)) + 32; //convert Kelvin to Fahrenheit
-				document.getElementById('cityName').textContent = name;
-				document.getElementById('weatherDescription').textContent = weather[0].description;
-				document.getElementById('temperature').textContent = temp;
-				document.getElementById('returnCode').textContent = req.responseText;
-			}
-		} else {
-				console.log("Error in network request: " + request.statusText);
-			}
-		});
-
-	req.send(null);
-	event.preventDefault();
-  });
-	*/
 
 
 app.get('/randomnum',function(req,res){
