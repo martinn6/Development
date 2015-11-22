@@ -92,6 +92,7 @@ app.post('/todo',function(req,res){
 		return temp;
 		});
 	reqWeather.send(null);
+	console.log("Temp= ", temp);
 	req.session.toDo.push({"name":req.body.name, 
 		"city":req.body.city, 
 		"minTemp":req.body.minTemp, 
