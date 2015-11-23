@@ -48,21 +48,9 @@ app.post('/todo',function(req,res){
   
   function setTemp(temp, toDo)
   {
-	console.log(toDo);
-	toDo.push({
-				"name":req.body.name, 
-				"city":req.body.city, 
-				"minTemp":req.body.minTemp, 
-				"curCityTemp":temp,
-				"id":req.session.curId
-			});
-	req.session.curId++;
-			context.name = req.session.name;
-		context.toDoCount = req.session.toDo.length;
-		context.toDo = req.session.toDo;
-		console.log("context2");
-		console.log(context.toDo);
-		res.render('todolist', context);
+	tempMain = tempFromListener;
+	console.log("getTemp ran");
+	console.log("temp inside= " + tempMain);
   }
 
   if(req.body['New List']){
@@ -85,9 +73,10 @@ app.post('/todo',function(req,res){
 	//sumit to get weather
 	var reqWeather = new XMLHttpRequest();
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
-	reqWeather.send(null);
+
 	reqWeather.addEventListener.bind('load',tempMain = function()
 		{
+			var temp = "";
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
 			{
 				var response = JSON.parse(reqWeather.responseText);
@@ -103,7 +92,6 @@ app.post('/todo',function(req,res){
 					temp = response.main.temp;
 					temp = (((temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
 					console.log("Temp2= ", temp);
-					setTemp(temp, session.toDo);
 				}
 			
 			} else 
@@ -114,10 +102,20 @@ app.post('/todo',function(req,res){
 			
 		});
 		
+	console.log("tempMain= " + tempMain);
 
+	reqWeather.send(null);
 	
 	
-
+	req.session.toDo.push({
+				"name":req.body.name, 
+				"city":req.body.city, 
+				"minTemp":req.body.minTemp, 
+				"curCityTemp":tempMain,
+				"id":req.session.curId
+			});
+			req.session.curId++;
+	
 if(req.body['Done']){
 				req.session.toDo = req.session.toDo.filter(function(e){
 					return e.id != req.body.id;
