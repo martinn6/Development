@@ -6,8 +6,6 @@ var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-var tempMain = "";
-var response = [];
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -45,17 +43,14 @@ app.get('/todo',function(req,res,next){
 
 app.post('/todo',function(req,res){
   var context = {};
-  
+  var tempMain = "";
   console.log("todo post");
   
   function setTemp(tempFromListener)
   {
-	this.tempMain = tempFromListener;
+	tempMain = tempFromListener;
 	console.log("getTemp ran");
 	console.log("temp inside= " + tempMain);
-	
-			
-		
   }
 
   if(req.body['New List']){
@@ -69,7 +64,7 @@ app.post('/todo',function(req,res){
   if(!req.session.name){
     res.render('login', context);
     return;
-  } 
+  }
 
   if(req.body['Add Item']){
 	//get city name
@@ -78,13 +73,13 @@ app.post('/todo',function(req,res){
 	//sumit to get weather
 	var reqWeather = new XMLHttpRequest();
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
-	reqWeather.send(null);
+
 	reqWeather.addEventListener('load',function()
 		{
-			var temp;
+			var temp = "";
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
 			{
-				response = JSON.parse(reqWeather.responseText);
+				var response = JSON.parse(reqWeather.responseText);
 				console.log("Message=" + response.message);
 				if(response.message == "Error: Not found city")
 				{
@@ -105,9 +100,22 @@ app.post('/todo',function(req,res){
 				console.log("Error in network request: " + request.statusText);
 			}
 			
+			
 		});
 		
+	console.log("temp= " + tempMain);
+
+	reqWeather.send(null);
 	
+	
+	req.session.toDo.push({
+				"name":req.body.name, 
+				"city":req.body.city, 
+				"minTemp":req.body.minTemp, 
+				"curCityTemp":tempMain,
+				"id":req.session.curId
+			});
+			req.session.curId++;
 	
 if(req.body['Done']){
 				req.session.toDo = req.session.toDo.filter(function(e){
@@ -116,15 +124,6 @@ if(req.body['Done']){
 			}
 
   }
-  
-		req.session.toDo.push({
-				"name":req.body.name, 
-				"city":req.body.city, 
-				"minTemp":req.body.minTemp, 
-				"curCityTemp":tempMain,
-				"id":req.session.curId
-			});
-		
 		context.name = req.session.name;
 		context.toDoCount = req.session.toDo.length;
 		context.toDo = req.session.toDo;
