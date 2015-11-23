@@ -89,8 +89,8 @@ app.post('/todo',function(req,res){
 			{
 				console.log("Error in network request: " + request.statusText);
 			}
-			return(temp2);
-		});
+			
+		}return(temp2););
 	reqWeather.send(null);
 	console.log("temp= " + temp);
 	
@@ -113,7 +113,8 @@ if(req.body['Done']){
 		context.name = req.session.name;
 		context.toDoCount = req.session.toDo.length;
 		context.toDo = req.session.toDo;
-		console.log("context2 = " + context.toDo);
+		console.log("context2");
+		console.log(context.toDo);
 		res.render('todolist', context);
   
 });
