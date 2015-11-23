@@ -66,7 +66,7 @@ app.post('/todo',function(req,res){
 	//sumit to get weather
 	var reqWeather = new XMLHttpRequest();
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
-		reqWeather.addEventListener('load',function()
+		reqWeather.addEventListener('load',function(req)
 		{
 			var temp = "";
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
@@ -102,11 +102,7 @@ app.post('/todo',function(req,res){
 			console.log(req.session.toDo);
 			req.session.curId++;
 			
-			if(req.body['Done']){
-				req.session.toDo = req.session.toDo.filter(function(e){
-					return e.id != req.body.id;
-				})
-			}
+			i
 
 		
 			
@@ -115,7 +111,11 @@ app.post('/todo',function(req,res){
 		
 	reqWeather.send(null);
 	
-
+f(req.body['Done']){
+				req.session.toDo = req.session.toDo.filter(function(e){
+					return e.id != req.body.id;
+				})
+			}
 
   }
 			context.name = req.session.name;
