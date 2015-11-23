@@ -101,7 +101,8 @@ app.post('/todo',function(req,res){
 			}
 			
 		});
-	console.log("temp= " + temp);
+		
+	console.log("temp= " + tempMain);
 
 	reqWeather.send(null);
 	
