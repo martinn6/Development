@@ -132,7 +132,7 @@ app.post('/todo',function(req,res){
 	);
 	*/
 
-	reqWeather.send(null);
+	//reqWeather.send(null);
 	console.log("temp= " + temp);
 	
 	req.session.toDo.push({
