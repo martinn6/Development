@@ -46,7 +46,7 @@ app.post('/todo',function(req,res){
   var temp = "";
   console.log("todo post");
   
-  function getTemp(temp2)
+  function setTemp(tempFromListener)
   {
 	temp = temp2;
 	console.log("getTemp ran");
@@ -92,7 +92,7 @@ app.post('/todo',function(req,res){
 					temp = response.main.temp;
 					temp = (((temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
 					console.log("Temp2= ", temp);
-					return(temp);
+					setTemp(temp);
 				}
 			
 			} else 
