@@ -46,7 +46,7 @@ app.post('/todo',function(req,res){
   var temp = "";
   console.log("todo post");
   
-  function getTemp.bind(temp2)
+  function getTemp(temp2)
   {
 	temp = temp2;
 	console.log("getTemp ran");
