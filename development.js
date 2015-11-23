@@ -74,7 +74,7 @@ app.post('/todo',function(req,res){
 	var reqWeather = new XMLHttpRequest();
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
 
-	reqWeather.addEventListener('load',function()
+	temp = reqWeather.addEventListener('load',function()
 		{
 			var temp = "";
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
@@ -91,9 +91,8 @@ app.post('/todo',function(req,res){
 					console.log(reqWeather.responseText);
 					temp = response.main.temp;
 					temp = (((temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
-					document.getElementById('tempTemp').value = temp;
-					console.log("Temp2= ", temp2);
-			
+					console.log("Temp2= ", temp);
+					return(temp);
 				}
 			
 			} else 
@@ -102,9 +101,10 @@ app.post('/todo',function(req,res){
 			}
 			
 		});
+	console.log("temp= " + temp);
 
 	reqWeather.send(null);
-	console.log("temp= " + temp);
+	
 	
 	req.session.toDo.push({
 				"name":req.body.name, 
