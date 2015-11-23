@@ -51,6 +51,7 @@ app.post('/todo',function(req,res){
 	var finalTemp;
 	if(temp)
 		finalTemp = temp;
+	console.log("Final Temp= " + finalTemp);
 	return(finalTemp);
   }
 
