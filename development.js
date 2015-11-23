@@ -96,7 +96,7 @@ app.post('/todo',function(req,res){
 	req.session.toDo.push({"name":req.body.name, 
 		"city":req.body.city, 
 		"minTemp":req.body.minTemp, 
-		"curCityTemp":temp,
+		//"curCityTemp":temp,
 		"id":req.session.curId
 	});
 	console.log(req.session.toDo);
