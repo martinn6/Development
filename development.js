@@ -90,7 +90,7 @@ app.post('/todo',function(req,res){
 	var reqWeather = new XMLHttpRequest();
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
 	reqWeather.send(null);
-	reqWeather.addEventListener.('load',function()
+	reqWeather.addEventListener('load',function()
 		{
 			var temp;
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
