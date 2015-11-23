@@ -100,7 +100,7 @@ app.post('/todo',function(req,res){
 				console.log("Error in network request: " + request.statusText);
 			}
 			
-		});
+		}());
 
 	reqWeather.send(null);
 	console.log("temp= " + temp);
