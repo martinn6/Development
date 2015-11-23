@@ -46,9 +46,11 @@ app.post('/todo',function(req,res){
   var temp = "";
   console.log("todo post");
   
-  function getTemp(temp2)
+  function getTemp.bind(temp2)
   {
 	temp = temp2;
+	console.log("getTemp ran");
+	console.log("temp inside= " + temp);
   }
 
   if(req.body['New List']){
