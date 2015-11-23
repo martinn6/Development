@@ -53,13 +53,7 @@ app.post('/todo',function(req,res){
 	this.tempMain = tempFromListener;
 	console.log("getTemp ran");
 	console.log("temp inside= " + tempMain);
-	req.session.toDo.push({
-				"name":req.body.name, 
-				"city":req.body.city, 
-				"minTemp":req.body.minTemp, 
-				"curCityTemp":tempMain,
-				"id":req.session.curId
-			});
+	
 			
 		
   }
@@ -122,6 +116,14 @@ if(req.body['Done']){
 			}
 
   }
+  
+		req.session.toDo.push({
+				"name":req.body.name, 
+				"city":req.body.city, 
+				"minTemp":req.body.minTemp, 
+				"curCityTemp":tempMain,
+				"id":req.session.curId
+			});
 		
 		context.name = req.session.name;
 		context.toDoCount = req.session.toDo.length;
