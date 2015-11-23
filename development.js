@@ -52,30 +52,6 @@ app.post('/todo',function(req,res){
 	console.log("getTemp ran");
 	console.log("temp inside= " + temp);
   }
-  
-  function setValues(temp2)
-  {
-	if(reqWeather.status >= 200 && reqWeather.status < 400)
-	{
-		var response = JSON.parse(reqWeather.responseText);
-		console.log("Message=" + response.message);
-		if(response.message == "Error: Not found city")
-		{
-			console.log("Error: Not Found City");
-			temp2 = "City Not Found";
-		}
-		else
-		{
-			console.log(reqWeather.responseText);
-			temp2 = response.main.temp;
-			temp2 = (((temp2 - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
-			console.log("Temp2= ", temp2);
-		} 
-	}else 
-	{
-			console.log("Error in network request: " + request.statusText);
-	}
-  }
 
   if(req.body['New List']){
     req.session.name = req.body.name;
@@ -98,15 +74,9 @@ app.post('/todo',function(req,res){
 	var reqWeather = new XMLHttpRequest();
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
 
-	
-	reqWeather.addEventListener('load', function() {
-		setValues(temp);
-	});
-	
-	/*
-	reqWeather.addEventListener('load', function()
+	reqWeather.addEventListener('load',function()
 		{
-			var temp2 = "";
+			var temp = "";
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
 			{
 				var response = JSON.parse(reqWeather.responseText);
@@ -114,15 +84,16 @@ app.post('/todo',function(req,res){
 				if(response.message == "Error: Not found city")
 				{
 					console.log("Error: Not Found City");
-					temp2 = "City Not Found";
+					temp = "City Not Found";
 				}
 				else
 				{
 					console.log(reqWeather.responseText);
-					temp2 = response.main.temp;
-					temp2 = (((temp2 - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
+					temp = response.main.temp;
+					temp = (((temp2 - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
+					document.getElementById('tempTemp').value = temp;
 					console.log("Temp2= ", temp2);
-					getTemp(temp2);
+			
 				}
 			
 			} else 
@@ -130,9 +101,7 @@ app.post('/todo',function(req,res){
 				console.log("Error in network request: " + request.statusText);
 			}
 			
-		}
-	);
-	*/
+		});
 
 	reqWeather.send(null);
 	console.log("temp= " + temp);
@@ -141,7 +110,7 @@ app.post('/todo',function(req,res){
 				"name":req.body.name, 
 				"city":req.body.city, 
 				"minTemp":req.body.minTemp, 
-				"curCityTemp":temp,
+				"curCityTemp":document.getElementById('tempTemp').value,
 				"id":req.session.curId
 			});
 			req.session.curId++;
