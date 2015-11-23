@@ -65,35 +65,34 @@ app.post('/todo',function(req,res){
 	
 	//sumit to get weather
 	var reqWeather = new XMLHttpRequest();
-	var temp = reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
-		reqWeather.addEventListener('load',function(){
-		if(reqWeather.status >= 200 && reqWeather.status < 400)
+	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
+		reqWeather.addEventListener('load',function()
 		{
-			var response = JSON.parse(reqWeather.responseText);
-			console.log("Message=" + response.message);
-			if(response.message == "Error: Not found city")
+			var temp = "";
+			if(reqWeather.status >= 200 && reqWeather.status < 400)
 			{
-				console.log("Error: Not Found City");
-				this.temp = "City Not Found";
-			}
-			else
-			{
-				console.log(reqWeather.responseText);
-				this.temp = response.main.temp;
-				this.temp = (((temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
-				console.log("Temp= ", temp);
-				req.session.toDo.push({"curCityTemp":temp});
-			}
+				var response = JSON.parse(reqWeather.responseText);
+				console.log("Message=" + response.message);
+				if(response.message == "Error: Not found city")
+				{
+					console.log("Error: Not Found City");
+					this.temp = "City Not Found";
+				}
+				else
+				{
+					console.log(reqWeather.responseText);
+					this.temp = response.main.temp;
+					this.temp = (((temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
+					console.log("Temp= ", this.temp);
+					req.session.toDo.push({"curCityTemp":this.temp});
+				}
 			
-		} else 
-		{
-			console.log("Error in network request: " + request.statusText);
-			temp = "City Not Found";
-		}
-		return temp;
+			} else 
+			{
+				console.log("Error in network request: " + request.statusText);
+			}
 		});
 	reqWeather.send(null);
-	console.log("Temp2= ", temp);
 	req.session.toDo.push({"name":req.body.name, 
 		"city":req.body.city, 
 		"minTemp":req.body.minTemp, 
