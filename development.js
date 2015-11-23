@@ -113,11 +113,11 @@ if(req.body['Done']){
 			}
 
   }
-			context.name = req.session.name;
-			context.toDoCount = req.session.toDo.length;
-			context.toDo = req.session.toDo;
-			console.log(context.toDo);
-			res.render('todolist',context);
+		context.name = req.session.name;
+		context.toDoCount = req.session.toDo.length;
+		context.toDo = req.session.toDo;
+		console.log("context2 = " + context.toDo);
+		res.render('todolist', context);
   
 });
 
