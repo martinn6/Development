@@ -60,12 +60,7 @@ app.post('/todo',function(req,res){
 				"curCityTemp":tempMain,
 				"id":req.session.curId
 			});
-			req.session.curId++;
-			context.name = req.session.name;
-		context.toDoCount = req.session.toDo.length;
-		context.toDo = req.session.toDo;
-		console.log("context2");
-		console.log(context.toDo);
+			
 		
   }
 
@@ -127,6 +122,12 @@ if(req.body['Done']){
 			}
 
   }
+  req.session.curId++;
+			context.name = req.session.name;
+		context.toDoCount = req.session.toDo.length;
+		context.toDo = req.session.toDo;
+		console.log("context2");
+		console.log(context.toDo);
 		res.render('todolist', context);
   
 });
