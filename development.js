@@ -81,10 +81,9 @@ app.post('/todo',function(req,res){
 				else
 				{
 					console.log(reqWeather.responseText);
-					this.temp = response.main.temp;
-					this.temp = (((this.temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
-					console.log("Temp= ", this.temp);
-					req.session.toDo.push({"curCityTemp":this.temp});
+					temp = response.main.temp;
+					temp = (((this.temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
+					console.log("Temp= ", temp);
 					console.log(req.session.toDo);
 				}
 			
@@ -92,31 +91,39 @@ app.post('/todo',function(req,res){
 			{
 				console.log("Error in network request: " + request.statusText);
 			}
+			
+			req.session.toDo.push({
+				"name":req.body.name, 
+				"city":req.body.city, 
+				"minTemp":req.body.minTemp, 
+				"curCityTemp":temp,
+				"id":req.session.curId
+			});
+			console.log(req.session.toDo);
+			req.session.curId++;
+			
+			if(req.body['Done']){
+				req.session.toDo = req.session.toDo.filter(function(e){
+					return e.id != req.body.id;
+				})
+			}
+
+			context.name = req.session.name;
+			context.toDoCount = req.session.toDo.length;
+			context.toDo = req.session.toDo;
+			console.log(context.toDo);
+			res.render('todolist',context);
+			
+			
 		});
+		
 	reqWeather.send(null);
-	req.session.toDo.push({
-		"name":req.body.name, 
-		"city":req.body.city, 
-		"minTemp":req.body.minTemp, 
-		//"curCityTemp":temp,
-		"id":req.session.curId
-	});
-	console.log(req.session.toDo);
-	req.session.curId++;
+	
+
 
   }
 
-  if(req.body['Done']){
-    req.session.toDo = req.session.toDo.filter(function(e){
-      return e.id != req.body.id;
-    })
-  }
-
-  context.name = req.session.name;
-  context.toDoCount = req.session.toDo.length;
-  context.toDo = req.session.toDo;
-  console.log(context.toDo);
-  res.render('todolist',context);
+  
 });
 
 
