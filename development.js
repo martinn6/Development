@@ -78,7 +78,6 @@ app.post('/todo',function(req,res){
 
 	reqWeather.addEventListener('load',function()
 		{
-			var temp = "";
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
 			{
 				var response = JSON.parse(reqWeather.responseText);
@@ -92,17 +91,10 @@ app.post('/todo',function(req,res){
 				{
 					console.log("reqWeather");
 					console.log(reqWeather.responseText);
-					temp = response.main.temp;
-					temp = (((temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
-					console.log("Temp2= ", temp);
-						req.session.toDo.push({
-				"name":req.body.name, 
-				"city":req.body.city, 
-				"minTemp":req.body.minTemp, 
-				"curCityTemp":tempMain,
-				"id":req.session.curId
-			});
-				res.render('todolist', context);
+					this.tempMain =  response.main.temp;
+					this.tempMain = (((this.tempMain - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
+					console.log("Temp2= ", this.tempMain);
+					setTemp(this.tempMain);
 				}
 			
 			} else 
@@ -119,7 +111,13 @@ app.post('/todo',function(req,res){
 	reqWeather.send(null);
 	
 	
-
+	req.session.toDo.push({
+				"name":req.body.name, 
+				"city":req.body.city, 
+				"minTemp":req.body.minTemp, 
+				"curCityTemp":tempMain,
+				"id":req.session.curId
+			});
 			req.session.curId++;
 	
 if(req.body['Done']){
