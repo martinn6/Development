@@ -93,6 +93,7 @@ app.post('/todo',function(req,res){
 					temp = (((temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
 					console.log("Temp2= ", temp);
 					setTemp(temp);
+					document.getElementById("tempTemp").value = temp;
 				}
 			
 			} else 
