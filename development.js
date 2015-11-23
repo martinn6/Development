@@ -43,12 +43,12 @@ app.get('/todo',function(req,res,next){
 
 app.post('/todo',function(req,res){
   var context = {};
-  var temp = "";
+  var tempMain = "";
   console.log("todo post");
   
   function setTemp(tempFromListener)
   {
-	temp = temp2;
+	tempMain = tempFromListener;
 	console.log("getTemp ran");
 	console.log("temp inside= " + temp);
   }
@@ -110,7 +110,7 @@ app.post('/todo',function(req,res){
 				"name":req.body.name, 
 				"city":req.body.city, 
 				"minTemp":req.body.minTemp, 
-				"curCityTemp":temp,
+				"curCityTemp":tempMain,
 				"id":req.session.curId
 			});
 			req.session.curId++;
