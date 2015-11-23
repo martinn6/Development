@@ -70,12 +70,11 @@ app.post('/todo',function(req,res){
 			temp = response.main.temp;
 			temp = (((temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
 			console.log("Temp= ", temp);
-		} else 
-		{
+		} 
+	}else 
+	{
 			console.log("Error in network request: " + request.statusText);
-		}
 	}
-	
   }
 
   if(req.body['New List']){
