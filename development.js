@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var tempMain = "";
+var response = [];
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -80,7 +81,7 @@ app.post('/todo',function(req,res){
 			var temp;
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
 			{
-				var response = JSON.parse(reqWeather.responseText);
+				response = JSON.parse(reqWeather.responseText);
 				console.log("Message=" + response.message);
 				if(response.message == "Error: Not found city")
 				{
@@ -105,6 +106,7 @@ app.post('/todo',function(req,res){
 		});
 		
 	console.log("temp= " + tempMain);
+	console.log("response= " + response);
 
 	req.session.toDo.push({
 				"name":req.body.name, 
