@@ -48,6 +48,7 @@ app.post('/todo',function(req,res){
   
   function setTemp(temp, toDo)
   {
+	console.log(toDo);
 	toDo.push({
 				"name":req.body.name, 
 				"city":req.body.city, 
