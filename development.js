@@ -53,7 +53,7 @@ app.post('/todo',function(req,res){
 	console.log("temp inside= " + temp);
   }
   
-  function setValues()
+  function setValues(temp2)
   {
 	if(reqWeather.status >= 200 && reqWeather.status < 400)
 	{
@@ -62,14 +62,14 @@ app.post('/todo',function(req,res){
 		if(response.message == "Error: Not found city")
 		{
 			console.log("Error: Not Found City");
-			temp = "City Not Found";
+			temp2 = "City Not Found";
 		}
 		else
 		{
 			console.log(reqWeather.responseText);
-			temp = response.main.temp;
-			temp = (((temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
-			console.log("Temp= ", temp);
+			temp2 = response.main.temp;
+			temp2 = (((temp2 - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
+			console.log("Temp2= ", temp2);
 		} 
 	}else 
 	{
@@ -99,7 +99,9 @@ app.post('/todo',function(req,res){
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
 
 	
-	reqWeather.addEventListener('load', setValues);
+	reqWeather.addEventListener('load', function() {
+		setValues(temp);
+	});
 	
 	/*
 	reqWeather.addEventListener('load', function()
@@ -132,7 +134,7 @@ app.post('/todo',function(req,res){
 	);
 	*/
 
-	//reqWeather.send(null);
+	reqWeather.send(null);
 	console.log("temp= " + temp);
 	
 	req.session.toDo.push({
