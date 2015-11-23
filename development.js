@@ -91,9 +91,9 @@ app.post('/todo',function(req,res){
 				{
 					console.log("reqWeather");
 					console.log(reqWeather.responseText);
-					this.tempMain =  response.main.temp;
-					this.tempMain = (((this.tempMain - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
-					console.log("Temp2= ", this.tempMain);
+					this.this.tempMain =  response.main.temp;
+					this.this.tempMain = (((this.this.tempMain - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
+					console.log("Temp2= ", this.this.tempMain);
 					setTemp(this.tempMain);
 				}
 			
