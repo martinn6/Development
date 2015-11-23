@@ -85,10 +85,9 @@ app.post('/todo',function(req,res){
 	//sumit to get weather
 	var reqWeather = new XMLHttpRequest();
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
-
+	reqWeather.send(null);
 	reqWeather.addEventListener.bind('load',tempMain = function()
 		{
-			var temp = "";
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
 			{
 				var response = JSON.parse(reqWeather.responseText);
@@ -116,7 +115,7 @@ app.post('/todo',function(req,res){
 		});
 		
 
-	reqWeather.send(null);
+	
 	
 
 if(req.body['Done']){
