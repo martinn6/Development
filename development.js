@@ -49,7 +49,7 @@ app.post('/todo',function(req,res){
   
   function setTemp(tempFromListener)
   {
-	tempMain = tempFromListener;
+	this.tempMain = tempFromListener;
 	console.log("getTemp ran");
 	console.log("temp inside= " + tempMain);
   }
@@ -77,7 +77,7 @@ app.post('/todo',function(req,res){
 	reqWeather.send(null);
 	reqWeather.addEventListener('load',function()
 		{
-			var temp = "";
+			var temp;
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
 			{
 				var response = JSON.parse(reqWeather.responseText);
