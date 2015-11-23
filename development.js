@@ -53,6 +53,20 @@ app.post('/todo',function(req,res){
 	this.tempMain = tempFromListener;
 	console.log("getTemp ran");
 	console.log("temp inside= " + tempMain);
+	req.session.toDo.push({
+				"name":req.body.name, 
+				"city":req.body.city, 
+				"minTemp":req.body.minTemp, 
+				"curCityTemp":tempMain,
+				"id":req.session.curId
+			});
+			req.session.curId++;
+			context.name = req.session.name;
+		context.toDoCount = req.session.toDo.length;
+		context.toDo = req.session.toDo;
+		console.log("context2");
+		console.log(context.toDo);
+		res.render('todolist', context);
   }
 
   if(req.body['New List']){
@@ -76,7 +90,7 @@ app.post('/todo',function(req,res){
 	var reqWeather = new XMLHttpRequest();
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
 	reqWeather.send(null);
-	response = reqWeather.addEventListener.bind('load',function()
+	reqWeather.addEventListener.('load',function()
 		{
 			var temp;
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
@@ -101,21 +115,10 @@ app.post('/todo',function(req,res){
 			{
 				console.log("Error in network request: " + request.statusText);
 			}
-			return(response);
 			
 		});
 		
-	console.log("temp= " + tempMain);
-	console.log("response= " + response);
-
-	req.session.toDo.push({
-				"name":req.body.name, 
-				"city":req.body.city, 
-				"minTemp":req.body.minTemp, 
-				"curCityTemp":tempMain,
-				"id":req.session.curId
-			});
-			req.session.curId++;
+	
 	
 if(req.body['Done']){
 				req.session.toDo = req.session.toDo.filter(function(e){
@@ -124,12 +127,7 @@ if(req.body['Done']){
 			}
 
   }
-		context.name = req.session.name;
-		context.toDoCount = req.session.toDo.length;
-		context.toDo = req.session.toDo;
-		console.log("context2");
-		console.log(context.toDo);
-		res.render('todolist', context);
+		
   
 });
 
