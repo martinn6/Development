@@ -102,6 +102,7 @@ app.post('/todo',function(req,res){
 				"curCityTemp":tempMain,
 				"id":req.session.curId
 			});
+				res.render('todolist', context);
 				}
 			
 			} else 
