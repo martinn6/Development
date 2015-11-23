@@ -62,13 +62,14 @@ app.post('/todo',function(req,res){
 	//get city name
 	var cityName = req.body.city;
 	console.log("cityName= " + cityName);
+	var temp = "";
 	
 	//sumit to get weather
 	var reqWeather = new XMLHttpRequest();
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
 		reqWeather.addEventListener.bind('load',function()
 		{
-			var temp = "";
+			
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
 			{
 				var response = JSON.parse(reqWeather.responseText);
@@ -76,15 +77,14 @@ app.post('/todo',function(req,res){
 				if(response.message == "Error: Not found city")
 				{
 					console.log("Error: Not Found City");
-					this.temp = "City Not Found";
+					temp = "City Not Found";
 				}
 				else
 				{
 					console.log(reqWeather.responseText);
 					temp = response.main.temp;
-					temp = (((this.temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
+					temp = (((.temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
 					console.log("Temp= ", temp);
-					console.log(req.session.toDo);
 				}
 			
 			} else 
@@ -101,10 +101,6 @@ app.post('/todo',function(req,res){
 			});
 			console.log(req.session.toDo);
 			req.session.curId++;
-			
-			
-		
-			
 			
 		});
 		
