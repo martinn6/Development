@@ -74,7 +74,7 @@ app.post('/todo',function(req,res){
 	var reqWeather = new XMLHttpRequest();
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
 
-	reqWeather.addEventListener('load',function()
+	reqWeather.addEventListener('load',bind.function()
 		{
 			var temp2 = "";
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
@@ -100,7 +100,7 @@ app.post('/todo',function(req,res){
 				console.log("Error in network request: " + request.statusText);
 			}
 			
-		}());
+		});
 
 	reqWeather.send(null);
 	console.log("temp= " + temp);
