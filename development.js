@@ -77,7 +77,6 @@ app.post('/todo',function(req,res){
 	reqWeather.addEventListener('load',function()
 		{
 			var temp = "";
-			var thisPage = document.body;
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
 			{
 				var response = JSON.parse(reqWeather.responseText);
