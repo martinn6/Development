@@ -75,7 +75,7 @@ app.post('/todo',function(req,res){
   if(!req.session.name){
     res.render('login', context);
     return;
-  }
+  } 
 
   if(req.body['Add Item']){
 	//get city name
@@ -122,8 +122,8 @@ if(req.body['Done']){
 			}
 
   }
-  req.session.curId++;
-			context.name = req.session.name;
+		
+		context.name = req.session.name;
 		context.toDoCount = req.session.toDo.length;
 		context.toDo = req.session.toDo;
 		console.log("context2");
