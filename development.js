@@ -102,8 +102,7 @@ app.post('/todo',function(req,res){
 			console.log(req.session.toDo);
 			req.session.curId++;
 			
-			i
-
+			
 		
 			
 			
@@ -111,7 +110,7 @@ app.post('/todo',function(req,res){
 		
 	reqWeather.send(null);
 	
-f(req.body['Done']){
+if(req.body['Done']){
 				req.session.toDo = req.session.toDo.filter(function(e){
 					return e.id != req.body.id;
 				})
