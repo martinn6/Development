@@ -6,6 +6,7 @@ var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var tempMain;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -43,7 +44,6 @@ app.get('/todo',function(req,res,next){
 
 app.post('/todo',function(req,res){
   var context = {};
-  var tempMain = "";
   console.log("todo post");
   
   function setTemp(tempFromListener)
@@ -74,7 +74,7 @@ app.post('/todo',function(req,res){
 	var reqWeather = new XMLHttpRequest();
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
 
-	reqWeather.addEventListener('load',function()
+	tempMain = reqWeather.addEventListener.bind('load',function()
 		{
 			var temp = "";
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
@@ -94,7 +94,6 @@ app.post('/todo',function(req,res){
 					console.log("Temp2= ", temp);
 					setTemp(temp);
 					return(temp);
-					console.log("past return");
 				}
 			
 			} else 
@@ -105,7 +104,7 @@ app.post('/todo',function(req,res){
 			
 		});
 		
-	console.log("temp= " + tempMain);
+	console.log("tempMain= " + tempMain);
 
 	reqWeather.send(null);
 	
