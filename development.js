@@ -88,6 +88,7 @@ app.post('/todo',function(req,res){
 				}
 				else
 				{
+					console.log("reqWeather");
 					console.log(reqWeather.responseText);
 					temp = response.main.temp;
 					temp = (((temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
