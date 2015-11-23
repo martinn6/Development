@@ -56,6 +56,12 @@ app.post('/todo',function(req,res){
 				"id":req.session.curId
 			});
 	req.session.curId++;
+			context.name = req.session.name;
+		context.toDoCount = req.session.toDo.length;
+		context.toDo = req.session.toDo;
+		console.log("context2");
+		console.log(context.toDo);
+		res.render('todolist', context);
   }
 
   if(req.body['New List']){
@@ -108,14 +114,10 @@ app.post('/todo',function(req,res){
 			
 		});
 		
-	console.log("tempMain= " + tempMain);
 
 	reqWeather.send(null);
 	
-	
-	
-			
-	
+
 if(req.body['Done']){
 				req.session.toDo = req.session.toDo.filter(function(e){
 					return e.id != req.body.id;
