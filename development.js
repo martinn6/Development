@@ -43,6 +43,7 @@ app.get('/todo',function(req,res,next){
 
 app.post('/todo',function(req,res){
   var context = {};
+  var temp = "";
   console.log("todo post");
   
   function getTemp(temp2)
