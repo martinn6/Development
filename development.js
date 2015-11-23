@@ -44,6 +44,11 @@ app.get('/todo',function(req,res,next){
 app.post('/todo',function(req,res){
   var context = {};
   console.log("todo post");
+  
+  function getTemp(temp2)
+  {
+	temp = temp2;
+  }
 
   if(req.body['New List']){
     req.session.name = req.body.name;
@@ -65,7 +70,8 @@ app.post('/todo',function(req,res){
 	//sumit to get weather
 	var reqWeather = new XMLHttpRequest();
 	reqWeather.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&APPID=' + apiKey, true);
-	var temp = reqWeather.addEventListener('load',function()
+
+	reqWeather.addEventListener('load',function()
 		{
 			var temp2 = "";
 			if(reqWeather.status >= 200 && reqWeather.status < 400)
@@ -83,6 +89,7 @@ app.post('/todo',function(req,res){
 					temp2 = response.main.temp;
 					temp2 = (((temp2 - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
 					console.log("Temp2= ", temp2);
+					getTemp(temp2);
 				}
 			
 			} else 
@@ -90,7 +97,8 @@ app.post('/todo',function(req,res){
 				console.log("Error in network request: " + request.statusText);
 			}
 			
-		}return(temp2););
+		});
+
 	reqWeather.send(null);
 	console.log("temp= " + temp);
 	
@@ -118,6 +126,7 @@ if(req.body['Done']){
 		res.render('todolist', context);
   
 });
+
 
 
 app.get('/randomnum',function(req,res){
