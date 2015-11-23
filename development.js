@@ -110,7 +110,7 @@ app.post('/todo',function(req,res){
 				"name":req.body.name, 
 				"city":req.body.city, 
 				"minTemp":req.body.minTemp, 
-				"curCityTemp":document.getElementById('tempTemp').value,
+				"curCityTemp":temp,
 				"id":req.session.curId
 			});
 			req.session.curId++;
