@@ -6,6 +6,7 @@ var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var tempMain = "";
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -43,7 +44,7 @@ app.get('/todo',function(req,res,next){
 
 app.post('/todo',function(req,res){
   var context = {};
-  var tempMain = "";
+  
   console.log("todo post");
   
   function setTemp(tempFromListener)
@@ -105,9 +106,6 @@ app.post('/todo',function(req,res){
 		
 	console.log("temp= " + tempMain);
 
-
-	
-	
 	req.session.toDo.push({
 				"name":req.body.name, 
 				"city":req.body.city, 
