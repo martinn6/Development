@@ -66,7 +66,7 @@ app.post('/todo',function(req,res){
 		context.toDo = req.session.toDo;
 		console.log("context2");
 		console.log(context.toDo);
-		res.render('todolist', context);
+		
   }
 
   if(req.body['New List']){
@@ -127,7 +127,7 @@ if(req.body['Done']){
 			}
 
   }
-		
+		res.render('todolist', context);
   
 });
 
