@@ -82,9 +82,10 @@ app.post('/todo',function(req,res){
 				{
 					console.log(reqWeather.responseText);
 					this.temp = response.main.temp;
-					this.temp = (((temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
+					this.temp = (((this.temp - 273) / (5/9)) + 32).toFixed(1); //convert Kelvin to Fahrenheit
 					console.log("Temp= ", this.temp);
 					req.session.toDo.push({"curCityTemp":this.temp});
+					console.log(req.session.toDo);
 				}
 			
 			} else 
@@ -93,7 +94,8 @@ app.post('/todo',function(req,res){
 			}
 		});
 	reqWeather.send(null);
-	req.session.toDo.push({"name":req.body.name, 
+	req.session.toDo.push({
+		"name":req.body.name, 
 		"city":req.body.city, 
 		"minTemp":req.body.minTemp, 
 		//"curCityTemp":temp,
